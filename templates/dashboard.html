@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+
+{% block title %}{{ dashboard.title }} - Heart Disease Analysis{% endblock %}
+
+{% block extra_css %}
+<style>
+    .breadcrumb {
+        max-width: 1600px;
+        margin: 0 auto;
+        padding: 1rem 2rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+    }
+
+    .breadcrumb a {
+        color: var(--primary-color);
+        text-decoration: none;
+    }
+
+    .breadcrumb a:hover {
+        text-decoration: underline;
+    }
+
+    .dashboard-navigation {
+        max-width: 1600px;
+        margin: 2rem auto;
+        padding: 0 2rem;
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+
+    .nav-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background: var(--bg-primary);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        text-decoration: none;
+        color: var(--text-primary);
+        font-weight: 500;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .nav-btn:hover {
+        background: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+        transform: translateX(-3px);
+    }
+
+    .nav-btn.next:hover {
+        transform: translateX(3px);
+    }
+
+    @media (max-width: 768px) {
+        .dashboard-navigation {
+            flex-direction: column;
+        }
+    }
+
+    /* Tableau responsive container */
+    .tableau-container {
+        width: 100%;
+        height: 850px;
+        margin-top: 1rem;
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- Breadcrumb -->
+<div class="breadcrumb">
+    <a href="/">Home</a>
+    <span>/</span>
+    <span>{{ dashboard.title }}</span>
+</div>
+
+<!-- Dashboard Header -->
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+            <div class="card-icon" style="margin-bottom: 0;">{{ dashboard.icon }}</div>
+            <h1>{{ dashboard.title }}</h1>
+        </div>
+        <p>{{ dashboard.description }}</p>
+    </div>
+
+    <!-- Dashboard Viewer -->
+    <div class="dashboard-viewer">
+
+        {% if dashboard.tableau_url and 'YOUR_TABLEAU_URL_HERE' not in dashboard.tableau_url %}
+
+        <!-- ✅ Proper Tableau Public Embed -->
+        <div class="tableau-container">
+            <div class="tableauPlaceholder" style="width: 100%; height: 100%;">
+                <object class="tableauViz" style="width: 100%; height: 100%;">
+                    <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" />
+                    <param name="embed_code_version" value="3" />
+                    <param name="site_root" value="" />
+
+                    <!-- Extract correct Sheet/Dashboard name -->
+                    <param name="name" value="heart_disease_analysis_17709056947700/{{ dashboard.tableau_url.split('/')[-1].split('?')[0] }}" />
+
+                    <param name="tabs" value="no" />
+                    <param name="toolbar" value="yes" />
+                    <param name="display_count" value="yes" />
+                    <param name="showVizHome" value="n" />
+                </object>
+            </div>
+        </div>
+
+        <!-- Tableau JS API -->
+        <script type="text/javascript"
+            src="https://public.tableau.com/javascripts/api/viz_v1.js"></script>
+
+        {% else %}
+
+        <!-- Placeholder when Tableau URL not configured -->
+        <div class="dashboard-placeholder">
+            <div class="dashboard-placeholder-icon">📊</div>
+            <h2 style="color: var(--text-primary); margin-bottom: 1rem;">
+                Dashboard Configuration Required
+            </h2>
+            <p style="max-width: 600px; margin: 0 auto 2rem; line-height: 1.6;">
+                To view this dashboard, please configure the Tableau URL in the
+                <code>app.py</code> file.
+            </p>
+            <div style="margin-top: 2rem;">
+                <a href="/" class="btn btn-primary">← Back to Dashboard Gallery</a>
+            </div>
+        </div>
+
+        {% endif %}
+    </div>
+</div>
+
+<!-- Dashboard Navigation -->
+<div class="dashboard-navigation">
+    {% set dashboard_keys = all_dashboards.keys()|list %}
+    {% set current_index = dashboard_keys.index(dashboard_id) %}
+    {% set prev_id = dashboard_keys[current_index - 1] if current_index > 0 else None %}
+    {% set next_id = dashboard_keys[current_index + 1] if current_index < (dashboard_keys|length - 1) else None %}
+
+    {% if prev_id %}
+    <a href="/dashboard/{{ prev_id }}" class="nav-btn prev">
+        ← Previous: {{ all_dashboards[prev_id].title }}
+    </a>
+    {% else %}
+    <div></div>
+    {% endif %}
+
+    {% if next_id %}
+    <a href="/dashboard/{{ next_id }}" class="nav-btn next">
+        Next: {{ all_dashboards[next_id].title }} →
+    </a>
+    {% else %}
+    <div></div>
+    {% endif %}
+</div>
+
+<!-- Related Dashboards -->
+<section class="section" style="background: var(--bg-tertiary);">
+    <div class="container">
+        <h2 style="font-family: 'Source Serif 4', serif; font-size: 2rem; margin-bottom: 2rem; text-align: center;">
+            Explore More Dashboards
+        </h2>
+
+        <div class="dashboard-grid">
+            {% set count = namespace(value=0) %}
+            {% for id, dash in all_dashboards.items() %}
+            {% if id != dashboard_id and count.value < 3 %}
+            <a href="/dashboard/{{ id }}" class="dashboard-card">
+                <div class="card-icon">{{ dash.icon }}</div>
+                <h3 class="card-title">{{ dash.title }}</h3>
+                <p class="card-description">{{ dash.description }}</p>
+                <span class="card-arrow">View Dashboard →</span>
+            </a>
+            {% set count.value = count.value + 1 %}
+            {% endif %}
+            {% endfor %}
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="/" class="btn btn-primary">View All Dashboards</a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+

@@ -1,0 +1,401 @@
+/* ============================================
+   Heart Disease Analytics - Final Clean CSS
+   Professional Healthcare Dashboard Theme
+   ============================================ */
+
+/* Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Source+Serif+4:wght@400;600;700&display=swap");
+
+/* ============================================
+   Root Theme Variables
+   ============================================ */
+:root {
+  /* Brand Colors */
+  --primary-color: #2563eb;
+  --primary-dark: #1e40af;
+  --secondary-color: #0891b2;
+  --accent-color: #ec4899;
+
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+  --danger-color: #ef4444;
+
+  /* Neutral UI */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-tertiary: #94a3b8;
+
+  --border-color: #e2e8f0;
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #2563eb 0%, #0891b2 100%);
+  --gradient-soft: linear-gradient(135deg, #f0f9ff 0%, #ecfeff 100%);
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+
+  /* Radius */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 18px rgba(0, 0, 0, 0.12);
+  --shadow-xl: 0 20px 30px rgba(0, 0, 0, 0.15);
+  --shadow-glow: 0 0 20px rgba(37, 99, 235, 0.15);
+}
+
+/* ============================================
+   Global Reset
+   ============================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ============================================
+   Header Navigation
+   ============================================ */
+.header {
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: 0.3s ease;
+}
+
+.header.scrolled {
+  box-shadow: var(--shadow-lg);
+}
+
+.navbar {
+  max-width: 1400px;
+  margin: auto;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-weight: 600;
+  font-size: 1.4rem;
+  text-decoration: none;
+  color: var(--text-primary);
+}
+
+.logo-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-md);
+  background: var(--gradient-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 1.4rem;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.nav-links a {
+  text-decoration: none;
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: 0.3s ease;
+}
+
+.nav-links a:hover {
+  background: var(--bg-tertiary);
+  color: var(--primary-color);
+}
+
+.nav-links a.active {
+  background: var(--gradient-soft);
+  color: var(--primary-color);
+}
+
+/* ============================================
+   Hero Section
+   ============================================ */
+.hero {
+  background: var(--gradient-primary);
+  color: white;
+  padding: var(--spacing-xl) var(--spacing-lg);
+  text-align: center;
+}
+
+.hero h1 {
+  font-family: "Source Serif 4", serif;
+  font-size: 3.2rem;
+  font-weight: 700;
+}
+
+.hero p {
+  margin-top: var(--spacing-md);
+  font-size: 1.2rem;
+  opacity: 0.95;
+}
+
+.hero-stats {
+  margin-top: var(--spacing-xl);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.15);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+}
+
+.stat-number {
+  font-size: 2.3rem;
+  font-weight: 700;
+}
+
+.stat-label {
+  opacity: 0.9;
+  font-size: 0.95rem;
+}
+
+/* ============================================
+   Dashboard Grid + Cards
+   ============================================ */
+.dashboard-grid {
+  max-width: 1400px;
+  margin: var(--spacing-xl) auto;
+  padding: 0 var(--spacing-lg);
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+/* Reveal Animation Controlled by JS */
+.dashboard-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-md);
+
+  text-decoration: none;
+  color: inherit;
+  display: block;
+
+  opacity: 0;
+  transform: translateY(25px);
+  transition: 0.6s ease;
+}
+
+.dashboard-card.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.dashboard-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl), var(--shadow-glow);
+  border-color: var(--primary-color);
+}
+
+.card-icon {
+  width: 60px;
+  height: 60px;
+  background: var(--gradient-soft);
+  border-radius: var(--radius-md);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 2rem;
+  margin-bottom: var(--spacing-md);
+}
+
+.card-title {
+  font-family: "Source Serif 4", serif;
+  font-size: 1.5rem;
+  margin-bottom: var(--spacing-xs);
+}
+
+.card-description {
+  color: var(--text-secondary);
+}
+
+.card-arrow {
+  display: inline-block;
+  margin-top: var(--spacing-sm);
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+/* ============================================
+   Dashboard Viewer (Tableau)
+   ============================================ */
+.dashboard-container {
+  max-width: 1600px;
+  margin: var(--spacing-lg) auto;
+  padding: 0 var(--spacing-lg);
+}
+
+.dashboard-viewer {
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  box-shadow: var(--shadow-lg);
+}
+
+.tableau-embed {
+  width: 100%;
+  height: 850px;
+  border: none;
+  border-radius: var(--radius-md);
+}
+
+/* Mobile Tableau Fix */
+@media (max-width: 768px) {
+  .tableau-embed {
+    height: 600px;
+  }
+}
+
+/* ============================================
+   Buttons
+   ============================================ */
+.btn {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-primary {
+  background: var(--gradient-primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  border: 2px solid white;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: white;
+  color: var(--primary-color);
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+.footer {
+  background: var(--text-primary);
+  color: white;
+  padding: var(--spacing-xl) var(--spacing-lg);
+  margin-top: var(--spacing-xl);
+}
+
+.footer-content {
+  max-width: 1400px;
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.footer-section h3 {
+  font-family: "Source Serif 4", serif;
+  margin-bottom: var(--spacing-md);
+}
+
+.footer-section a,
+.footer-section p {
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+}
+
+.footer-section a:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  text-align: center;
+  opacity: 0.7;
+}
+
+/* ============================================
+   Responsive Layout
+   ============================================ */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.4rem;
+  }
+
+  .navbar {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================
+   Utility
+   ============================================ */
+.container {
+  max-width: 1400px;
+  margin: auto;
+  padding: 0 var(--spacing-lg);
+}
+
+.section {
+  padding: var(--spacing-xl) 0;
+}

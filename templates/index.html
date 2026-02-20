@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+
+{% block title %}Heart Disease Analysis - Home{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Heart Disease Data Analytics</h1>
+        <p>
+            Explore interactive Tableau dashboards to understand cardiovascular risk factors,
+            demographic trends, and prevention insights through data.
+        </p>
+
+        <!-- Hero Stats -->
+        <div class="hero-stats">
+            <div class="stat-card">
+                <div class="stat-number" data-count="4500">0</div>
+                <div class="stat-label">Patient Records</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-count="18">0</div>
+                <div class="stat-label">Health Indicators</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-count="10">0</div>
+                <div class="stat-label">Dashboards</div>
+            </div>
+        </div>
+
+        <!-- Quick Button -->
+        <div style="margin-top: 2rem;">
+            <a href="#dashboards" class="btn btn-secondary" style="padding: 1rem 2rem;">
+                Explore Dashboards ↓
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Dashboards Section -->
+<section class="section" id="dashboards" style="background: var(--bg-tertiary); padding: 4rem 0;">
+    <div class="container">
+
+        <!-- Heading -->
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <h2 style="font-family: 'Source Serif 4', serif; font-size: 2.5rem;">
+                Interactive Dashboards
+            </h2>
+            <p style="color: var(--text-secondary); font-size: 1.1rem;">
+                Search and explore the complete heart disease analytics collection.
+            </p>
+        </div>
+
+        <!-- Search Bar -->
+        <div style="max-width: 500px; margin: 0 auto 3rem;">
+            <input 
+                type="text" 
+                id="dashboardSearch"
+                placeholder="Search dashboards (Age, Stroke, BMI, Race...)"
+                style="
+                    width: 100%;
+                    padding: 0.9rem 1rem;
+                    border-radius: var(--radius-md);
+                    border: 1px solid var(--border-color);
+                    font-size: 1rem;
+                    outline: none;
+                    box-shadow: var(--shadow-sm);
+                "
+            >
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid" id="dashboardGrid">
+
+            <!-- Comprehensive Dashboard First -->
+            {% if dashboards.comprehensive %}
+            <a href="/dashboard/comprehensive" class="dashboard-card">
+                <div class="card-icon">{{ dashboards.comprehensive.icon }}</div>
+                <h3 class="card-title">{{ dashboards.comprehensive.title }}</h3>
+                <p class="card-description">{{ dashboards.comprehensive.description }}</p>
+                <span class="card-arrow">View Dashboard →</span>
+            </a>
+            {% endif %}
+
+            <!-- Other Dashboards -->
+            {% for id, dashboard in dashboards.items() %}
+            {% if id != "comprehensive" %}
+            <a href="/dashboard/{{ id }}" class="dashboard-card dashboard-item">
+                <div class="card-icon">{{ dashboard.icon }}</div>
+                <h3 class="card-title">{{ dashboard.title }}</h3>
+                <p class="card-description">{{ dashboard.description }}</p>
+                <span class="card-arrow">View Dashboard →</span>
+            </a>
+            {% endif %}
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+
+<!-- Key Insights Section -->
+<section class="section">
+    <div class="container">
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <h2 style="font-family: 'Source Serif 4', serif; font-size: 2.5rem;">
+                Key Analytical Insights
+            </h2>
+            <p style="color: var(--text-secondary); font-size: 1.1rem;">
+                Major risk factors and trends observed in the dataset.
+            </p>
+        </div>
+
+        <div style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        ">
+
+            <div class="insight-card">
+                <h3>🚭 Lifestyle Factors</h3>
+                <p>Smoking and alcohol habits show strong correlation with cardiovascular disease occurrence.</p>
+            </div>
+
+            <div class="insight-card">
+                <h3>📊 Age & Risk</h3>
+                <p>Heart disease prevalence rises significantly in older age groups, especially after mid-life.</p>
+            </div>
+
+            <div class="insight-card">
+                <h3>💪 Prevention</h3>
+                <p>Regular physical activity is consistently associated with reduced heart disease risk.</p>
+            </div>
+
+            <div class="insight-card">
+                <h3>🩺 Comorbidities</h3>
+                <p>Diabetes and obesity contribute heavily as combined risk amplifiers.</p>
+            </div>
+
+            <div class="insight-card">
+                <h3>🌍 Demographic Variation</h3>
+                <p>Differences across race and gender highlight the need for targeted healthcare interventions.</p>
+            </div>
+
+            <div class="insight-card">
+                <h3>⚡ Early Detection</h3>
+                <p>Multi-factor monitoring improves prediction and prevention strategies.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="section" style="background: var(--gradient-primary); color: white; text-align: center; padding: 4rem 2rem;">
+    <div class="container">
+        <h2 style="font-family: 'Source Serif 4', serif; font-size: 2.5rem;">
+            Ready to Explore the Dashboards?
+        </h2>
+        <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.95;">
+            Dive into the data-driven insights and understand heart disease risk factors.
+        </p>
+        <a href="#dashboards" class="btn btn-secondary" style="font-size: 1.1rem; padding: 1rem 2rem;">
+            View Dashboards →
+        </a>
+    </div>
+</section>
+
+<!-- ✅ JavaScript Enhancements -->
+<script>
+/* Counter Animation */
+document.addEventListener("DOMContentLoaded", () => {
+    const counters = document.querySelectorAll(".stat-number");
+
+    counters.forEach(counter => {
+        const target = +counter.getAttribute("data-count");
+        let count = 0;
+
+        const update = () => {
+            count += target / 80;
+            if (count < target) {
+                counter.innerText = Math.ceil(count);
+                requestAnimationFrame(update);
+            } else {
+                counter.innerText = target;
+            }
+        };
+        update();
+    });
+});
+
+/* Dashboard Search Filter */
+document.addEventListener("DOMContentLoaded", () => {
+    const searchInput = document.getElementById("dashboardSearch");
+    const dashboardCards = document.querySelectorAll(".dashboard-item");
+
+    searchInput.addEventListener("keyup", () => {
+        const value = searchInput.value.toLowerCase();
+
+        dashboardCards.forEach(card => {
+            const text = card.innerText.toLowerCase();
+            card.style.display = text.includes(value) ? "block" : "none";
+        });
+    });
+});
+</script>
+
+<!-- Extra Styling for Insight Cards -->
+<style>
+.insight-card {
+    background: var(--bg-primary);
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    border-left: 4px solid var(--primary-color);
+}
+.insight-card h3 {
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    color: var(--primary-color);
+}
+.insight-card p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+</style>
+
+{% endblock %}

@@ -1,0 +1,276 @@
+{% extends "base.html" %}
+
+{% block title %}About - Heart Disease Analysis{% endblock %}
+
+{% block extra_css %}
+<style>
+    .page-header {
+        padding: 3rem 2rem;
+        text-align: center;
+    }
+
+    .content-wrapper {
+        max-width: 1050px;
+        margin: 0 auto;
+    }
+
+    .section-title {
+        font-family: 'Source Serif 4', serif;
+        font-size: 2.4rem;
+        margin-bottom: 2rem;
+        color: var(--text-primary);
+    }
+
+    .info-card {
+        background: var(--bg-primary);
+        padding: 2rem;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-md);
+        margin-bottom: 3rem;
+        line-height: 1.8;
+        color: var(--text-secondary);
+        font-size: 1.1rem;
+    }
+
+    .scenario-grid {
+        display: grid;
+        gap: 2rem;
+        margin-bottom: 3rem;
+    }
+
+    .scenario-card {
+        background: var(--bg-primary);
+        padding: 2rem;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-md);
+        border-left: 4px solid var(--primary-color);
+    }
+
+    .scenario-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+    }
+
+    .dataset-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    .stat-value {
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--primary-color);
+    }
+
+    .tech-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+    }
+
+    .tech-card {
+        background: var(--bg-primary);
+        padding: 2rem;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-md);
+    }
+
+    .tech-card h3 {
+        margin-bottom: 1rem;
+        font-size: 1.4rem;
+        color: var(--primary-color);
+    }
+
+    .objectives-list {
+        font-size: 1.1rem;
+        line-height: 2;
+        color: var(--text-secondary);
+    }
+
+    .source-note {
+        font-size: 0.95rem;
+        opacity: 0.75;
+        margin-top: 1.5rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- Page Header -->
+<section class="hero page-header">
+    <div class="hero-content">
+        <h1 style="font-size: 3rem;">About This Project</h1>
+        <p>
+            Learn about the methodology, dataset, and technology behind this heart disease analytics platform.
+        </p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container content-wrapper">
+
+        <!-- Project Overview -->
+        <h2 class="section-title">Project Overview</h2>
+
+        <div class="info-card">
+            <p>
+                Heart disease remains one of the leading causes of mortality worldwide. Lifestyle changes,
+                poor dietary habits, and physical inactivity continue to increase cardiovascular risk.
+            </p>
+
+            <p>
+                This project uses Tableau dashboards to transform raw healthcare data into meaningful insights.
+                The goal is to identify patterns, highlight key risk factors, and support evidence-based decision-making
+                for healthcare professionals and researchers.
+            </p>
+
+            <p class="source-note">
+                Note: This platform is built for educational and analytical purposes, not for direct clinical diagnosis.
+            </p>
+        </div>
+
+        <!-- How to Use -->
+        <h2 class="section-title">How to Use This Platform</h2>
+
+        <div class="info-card">
+            <ul>
+                <li>Select any dashboard from the homepage gallery.</li>
+                <li>Use Tableau filters to explore specific demographics (age, gender, race).</li>
+                <li>Hover over charts for detailed values and trends.</li>
+                <li>Compare lifestyle and health indicators across patient groups.</li>
+            </ul>
+        </div>
+
+        <!-- Real-World Scenarios -->
+        <h2 class="section-title">Real-World Scenarios (Examples)</h2>
+
+        <div class="scenario-grid">
+
+            <div class="scenario-card">
+                <h3>🏥 Clinical Decision Support</h3>
+                <p>
+                    A cardiologist may explore lifestyle factors such as smoking, BMI, and activity levels to identify
+                    high-risk patient groups and recommend prevention programs.
+                </p>
+            </div>
+
+            <div class="scenario-card" style="border-left-color: var(--secondary-color);">
+                <h3 style="color: var(--secondary-color);">🏛️ Public Health Policy</h3>
+                <p>
+                    Health departments can analyze demographic trends and regional differences to design targeted
+                    awareness campaigns and preventive healthcare policies.
+                </p>
+            </div>
+
+            <div class="scenario-card" style="border-left-color: var(--accent-color);">
+                <h3 style="color: var(--accent-color);">👤 Personal Health Awareness</h3>
+                <p>
+                    Individuals with family history of heart disease can better understand how factors like obesity,
+                    diabetes, and inactivity influence cardiovascular risk.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Dataset Information -->
+        <h2 class="section-title">Dataset Information</h2>
+
+        <div class="info-card">
+
+            <div class="dataset-stats">
+                <div>
+                    <div class="stat-value">4,500+</div>
+                    <p>Patient Records</p>
+                </div>
+                <div>
+                    <div class="stat-value">18</div>
+                    <p>Health Indicators</p>
+                </div>
+                <div>
+                    <div class="stat-value">10+</div>
+                    <p>Dashboards</p>
+                </div>
+            </div>
+
+            <h4 style="color: var(--text-primary); margin-bottom: 1rem;">Key Variables Analyzed</h4>
+
+            <ul style="columns: 2; line-height: 2;">
+                <li>Heart Disease Status</li>
+                <li>BMI (Body Mass Index)</li>
+                <li>Smoking & Alcohol Use</li>
+                <li>Stroke History</li>
+                <li>Physical Activity</li>
+                <li>Diabetes Status</li>
+                <li>General Health</li>
+                <li>Sleep Time</li>
+                <li>Race/Ethnicity</li>
+                <li>Difficulty Walking</li>
+            </ul>
+
+            <p class="source-note">
+                Dataset Source: Public healthcare survey dataset (Tableau Public project).
+            </p>
+        </div>
+
+        <!-- Technology Stack -->
+        <h2 class="section-title">Technology Stack</h2>
+
+        <div class="tech-grid">
+
+            <div class="tech-card">
+                <h3>📊 Tableau</h3>
+                <p>Used to build interactive dashboards and uncover health risk factor trends.</p>
+            </div>
+
+            <div class="tech-card">
+                <h3>🐍 Flask</h3>
+                <p>Python web framework used to serve and organize dashboards into a web platform.</p>
+            </div>
+
+            <div class="tech-card">
+                <h3>🎨 HTML / CSS / JavaScript</h3>
+                <p>Frontend design for responsive, modern, and user-friendly dashboard browsing.</p>
+            </div>
+
+        </div>
+
+        <!-- Project Objectives -->
+        <h2 class="section-title">Project Objectives</h2>
+
+        <div class="info-card">
+            <ol class="objectives-list">
+                <li>Transform raw healthcare data into actionable visual insights.</li>
+                <li>Identify major risk factors associated with heart disease.</li>
+                <li>Support healthcare decision-making through analytics.</li>
+                <li>Enable demographic and lifestyle-based comparisons.</li>
+                <li>Demonstrate Tableau’s value in healthcare data visualization.</li>
+            </ol>
+        </div>
+
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="section" style="background: var(--gradient-primary); color: white; text-align: center; padding: 4rem 2rem;">
+    <div class="container">
+        <h2 style="font-family: 'Source Serif 4', serif; font-size: 2.5rem; margin-bottom: 1rem;">
+            Explore the Dashboards
+        </h2>
+        <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.95;">
+            Discover insights that can help improve cardiovascular health outcomes.
+        </p>
+        <a href="{{ url_for('index') }}#dashboards"
+           class="btn btn-secondary"
+           style="font-size: 1.1rem; padding: 1rem 2rem;">
+            View Dashboards →
+        </a>
+    </div>
+</section>
+
+{% endblock %}
